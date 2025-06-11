@@ -1,0 +1,39 @@
+{% extends 'admin_dashboard.html' %}
+{% block content_admin %}
+<div class="admin-card">
+  <h2>Reporte de Calificaciones</h2>
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Usuario</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Grado</th>
+        <th>Grupo</th>
+        <th>Materia</th>
+        <th>Calificación</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% set count = 0 %}
+      {% for grade in grades %}
+        {% set count = count + 1 %}
+        <tr>
+          <td>{{ count }}</td>
+          <td>{{ grade.user.username }}</td>
+          <td>{{ grade.user.first_name }}</td>
+          <td>{{ grade.user.last_name }}</td>
+          <td>{{ grade.user.grade_level.name if grade.user.grade_level else '' }}</td>
+          <td>{{ grade.user.group.name if grade.user.group else '' }}</td>
+          <td>{{ grade.subject.name if grade.subject else '' }}</td>
+          <td>{{ grade.grade_value }}</td>
+          <td>{{ grade.created_at.strftime('%Y-%m-%d') }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div style="margin-top:1em; font-weight:bold;">Total de calificaciones: {{ grades|length }}</div>
+</div>
+{% endblock %}

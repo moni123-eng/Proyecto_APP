@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<h2 class="admin-card">Gestión de Usuarios</h2>
+<div class="admin-card">
+<form method="get" class="filters" style="margin-bottom:1em; display:flex; gap:1em; align-items:center;">
+    <label>Grado:</label>
+    <select name="grade_level">
+        <option value="">Todos</option>
+        {% for grade in grade_levels %}
+            <option value="{{ grade.id }}" {% if selected_grade == grade.id|string %}selected{% endif %}>{{ grade.name }}</option>
+        {% endfor %}
+    </select>
+    <label>Grupo:</label>
+    <select name="group">
+        <option value="">Todos</option>
+        {% for group in groups %}
+            <option value="{{ group.id }}" {% if selected_group == group.id|string %}selected{% endif %}>{{ group.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="admin-btn">Filtrar</button>
+</form>
+<table class="admin-table">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Grado</th>
+            <th>Grupo</th>
+            <th>Última actividad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.grade_level.name if user.grade_level else '' }}</td>
+            <td>{{ user.group.name if user.group else '' }}</td>
+            <td>
+                {% if user.last_activity_at %}
+                    {{ user.last_activity_at.strftime('%Y-%m-%d %H:%M') }}
+                    {% set now_naive = now().replace(tzinfo=None) %}
+                    {% set last_naive = user.last_activity_at.replace(tzinfo=None) %}
+                    {% if (now_naive - last_naive).total_seconds() < 300 %}
+                        <span class="badge" style="background:#22c55e;">Online</span>
+                    {% else %}
+                        <span class="badge" style="background:#fbbf24;">Offline</span>
+                    {% endif %}
+                {% else %}
+                    <span class="badge" style="background:#fbbf24;">Sin actividad</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ url_for('admin_edit_user', user_id=user.id) }}" class="admin-btn"><i class="fa-solid fa-pen"></i></a>
+                <form action="{{ url_for('admin_delete_user', user_id=user.id) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar este usuario?');">
+                    <button type="submit" class="admin-btn admin-btn-danger"><i class="fa-solid fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('admin_add_user') }}" class="admin-btn"><i class="fa-solid fa-plus"></i> Agregar Usuario</a>
+</div>
+{% endblock %}

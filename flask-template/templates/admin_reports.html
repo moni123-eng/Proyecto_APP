@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Reportes del Sistema</h2>
+    <ul>
+        <li><a href="{{ url_for('admin_report_grades') }}">Reporte de Calificaciones</a></li>
+        <li><a href="{{ url_for('admin_report_attendance') }}">Reporte de Asistencia</a></li>
+        <li><a href="{{ url_for('admin_report_behavior') }}">Reporte de Conducta</a></li>
+    </ul>
+</div>
+{% endblock %}

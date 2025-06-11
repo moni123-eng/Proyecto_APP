@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Agregar Materia</h2>
+    <form method="post">
+        <div style="margin-bottom:1em;">
+            <label>Nombre:</label>
+            <input type="text" name="name" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Descripción:</label>
+            <input type="text" name="description">
+        </div>
+        <button type="submit" class="admin-btn"><i class="fa-solid fa-plus"></i> Crear Materia</button>
+    </form>
+    <a href="{{ url_for('admin_subjects') }}" class="admin-btn admin-btn-danger" style="margin-top:1em;"><i class="fa-solid fa-arrow-left"></i> Volver al listado</a>
+</div>
+{% endblock %}

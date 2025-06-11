@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Editar Grupo</h2>
+    <form method="post">
+        <div style="margin-bottom:1em;">
+            <label>Nombre:</label>
+            <input type="text" name="name" value="{{ group.name }}" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Descripción:</label>
+            <input type="text" name="description" value="{{ group.description }}">
+        </div>
+        <button type="submit" class="admin-btn"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
+    </form>
+    <a href="{{ url_for('admin_groups') }}" class="admin-btn admin-btn-danger" style="margin-top:1em;"><i class="fa-solid fa-arrow-left"></i> Volver al listado</a>
+</div>
+{% endblock %}

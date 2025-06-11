@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content_user %}
+<div class="container my-4">
+  <h2 class="fw-bold mb-4"><i class="bi bi-emoji-smile me-2"></i>Mi Conducta</h2>
+  <ul class="list-group">
+    {% for beh in behaviors %}
+    <li class="list-group-item">
+      <div class="fw-bold">{{ beh.created_at.strftime('%Y-%m-%d') }}</div>
+      <div>{{ beh.description }}</div>
+    </li>
+    {% else %}
+    <li class="list-group-item text-muted">No hay registros de conducta.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

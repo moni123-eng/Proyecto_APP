@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Calificar Estudiantes</h2>
+    <form method="get" style="margin-bottom:1em; display:flex; gap:1em; align-items:center;">
+        <label>Grupo:</label>
+        <select name="group_id" required>
+            <option value="">Selecciona un grupo</option>
+            {% for group in groups %}
+                <option value="{{ group.id }}" {% if group.id|string == selected_group %}selected{% endif %}>{{ group.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Materia:</label>
+        <select name="subject_id" required>
+            <option value="">Selecciona una materia</option>
+            {% for subject in subjects %}
+                <option value="{{ subject.id }}" {% if subject.id|string == selected_subject %}selected{% endif %}>{{ subject.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="admin-btn">Ver estudiantes</button>
+    </form>
+    {% if students %}
+    <form method="post">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Estudiante</th>
+                    <th>Calificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.first_name }} {{ student.last_name }}</td>
+                    <td>
+                        {% set calificacion = None %}
+                        {% for g in student.grades if g.subject_id == selected_subject|int %}
+                            {% set calificacion = g.grade_value %}
+                        {% endfor %}
+                        <input type="number" name="grade_{{ student.id }}" min="0" max="10" step="0.01"
+                            value="{{ calificacion if calificacion is not none else '' }}"
+                            style="width:80px; text-align:center;">
+                        {% if calificacion is not none %}
+                            <span style="color: {% if calificacion >= 6 %}#22c55e{% else %}#e11d48{% endif %}; font-weight:bold;">
+                                ({{ calificacion }})
+                            </span>
+                        {% else %}
+                            <span style="color:#888;">Sin calificar</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="admin-btn" style="margin-top:1em;"><i class="fa-solid fa-floppy-disk"></i> Guardar Calificaciones</button>
+    </form>
+    {% elif selected_group and selected_subject %}
+        <div style="color:#e11d48; margin-top:2em;">No hay estudiantes en este grupo.</div>
+    {% endif %}
+</div>
+{% endblock %}

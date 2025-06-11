@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Editar Usuario</h2>
+    <form method="post">
+        <div style="margin-bottom:1em;">
+            <label>Usuario:</label>
+            <input type="text" value="{{ user.username }}" disabled>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Nombre:</label>
+            <input type="text" name="first_name" value="{{ user.first_name }}" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Apellido:</label>
+            <input type="text" name="last_name" value="{{ user.last_name }}" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Nivel de Grado:</label>
+            <select name="grade_level" required>
+                <option value="">Selecciona uno</option>
+                {% for grade in grade_levels %}
+                    <option value="{{ grade.id }}" {% if user.grade_level_id == grade.id %}selected{% endif %}>{{ grade.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Grupo:</label>
+            <select name="group">
+                <option value="">Sin grupo</option>
+                {% for group in groups %}
+                    <option value="{{ group.id }}" {% if user.group_id == group.id %}selected{% endif %}>{{ group.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label><input type="checkbox" name="is_admin" {% if user.is_admin %}checked{% endif %}> ¿Es administrador?</label>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Nueva contraseña (opcional):</label>
+            <input type="password" name="password">
+        </div>
+        <button type="submit" class="admin-btn"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
+    </form>
+    <a href="{{ url_for('admin_users') }}" class="admin-btn admin-btn-danger" style="margin-top:1em;"><i class="fa-solid fa-arrow-left"></i> Volver al listado</a>
+</div>
+{% endblock %}

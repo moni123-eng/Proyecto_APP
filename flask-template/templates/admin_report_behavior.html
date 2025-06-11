@@ -1,0 +1,51 @@
+{% extends 'admin_dashboard.html' %}
+{% block content_admin %}
+<div class="admin-card">
+  <h2>Reporte de Conducta</h2>
+  <form method="get" style="margin-bottom:1em; display:flex; gap:1em; align-items:center;">
+    <label>Grado:</label>
+    <select name="grade_level">
+      <option value="">Todos</option>
+      {% for grade in grade_levels %}
+        <option value="{{ grade.id }}" {% if selected_grade == grade.id|string %}selected{% endif %}>{{ grade.name }}</option>
+      {% endfor %}
+    </select>
+    <label>Grupo:</label>
+    <select name="group">
+      <option value="">Todos</option>
+      {% for group in groups %}
+        <option value="{{ group.id }}" {% if selected_group == group.id|string %}selected{% endif %}>{{ group.name }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="admin-btn">Filtrar</button>
+  </form>
+  <form method="post">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Estudiante</th>
+          <th>Grado</th>
+          <th>Grupo</th>
+          <th>Conducta</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td>{{ student.first_name }} {{ student.last_name }}</td>
+          <td>{{ student.grade_level.name if student.grade_level else '' }}</td>
+          <td>{{ student.group.name if student.group else '' }}</td>
+          <td>
+            <input type="text" name="behavior_{{ student.id }}" value="{{ student.behavior or '' }}" style="width:100%;">
+          </td>
+          <td>
+            <button type="submit" name="save_behavior" value="{{ student.id }}" class="admin-btn">Guardar</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </form>
+</div>
+{% endblock %}

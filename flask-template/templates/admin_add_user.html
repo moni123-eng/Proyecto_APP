@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Agregar Usuario</h2>
+    <form method="post">
+        <div style="margin-bottom:1em;">
+            <label>Usuario:</label>
+            <input type="text" name="username" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Nombre:</label>
+            <input type="text" name="first_name" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Apellido:</label>
+            <input type="text" name="last_name" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Contraseña:</label>
+            <input type="password" name="password" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Confirmar Contraseña:</label>
+            <input type="password" name="confirm" required>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Nivel de Grado:</label>
+            <select name="grade_level" required>
+                <option value="">Selecciona uno</option>
+                {% for grade in grade_levels %}
+                    <option value="{{ grade.id }}">{{ grade.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label>Grupo:</label>
+            <select name="group">
+                <option value="">Sin grupo</option>
+                {% for group in groups %}
+                    <option value="{{ group.id }}">{{ group.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="margin-bottom:1em;">
+            <label><input type="checkbox" name="is_admin"> ¿Es administrador?</label>
+        </div>
+        <button type="submit" class="admin-btn"><i class="fa-solid fa-plus"></i> Crear Usuario</button>
+    </form>
+    <a href="{{ url_for('admin_users') }}" class="admin-btn admin-btn-danger" style="margin-top:1em;"><i class="fa-solid fa-arrow-left"></i> Volver al listado</a>
+</div>
+{% endblock %}

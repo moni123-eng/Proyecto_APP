@@ -1,0 +1,124 @@
+/* admin.css - Estilo moderno para panel admin */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f6fafd;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f6fafd;
+}
+.admin-sidebar {
+    width: 240px;
+    background: #23272f;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 2em 1em 1em 1em;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.07);
+}
+.admin-sidebar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 2em;
+    color: #00d1ff;
+    letter-spacing: 1px;
+}
+.admin-sidebar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.8em 1em;
+    border-radius: 6px;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s;
+}
+.admin-sidebar a.active, .admin-sidebar a:hover {
+    background: #00d1ff;
+    color: #23272f;
+}
+.admin-sidebar .sidebar-footer {
+    margin-top: auto;
+    font-size: 0.95em;
+    color: #aaa;
+}
+.admin-main {
+    flex: 1;
+    padding: 2.5em 3em;
+    background: #f6fafd;
+}
+.admin-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 2em;
+}
+.admin-header .user {
+    font-weight: 500;
+    margin-right: 1.5em;
+    color: #23272f;
+}
+.admin-header .logout {
+    color: #e11d48;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 1em;
+}
+.admin-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+    padding: 2em 2em 1.5em 2em;
+    margin-bottom: 2em;
+}
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin: 1em 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.admin-table th, .admin-table td {
+    padding: 1em;
+    text-align: left;
+}
+.admin-table th {
+    background: #f1f5f9;
+    color: #23272f;
+    font-weight: bold;
+}
+.admin-table tr:nth-child(even) {
+    background: #f9fafb;
+}
+.admin-btn {
+    background: #00d1ff;
+    color: #23272f;
+    border: none;
+    padding: 0.7em 1.5em;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 0.5em;
+    transition: background 0.2s;
+}
+.admin-btn:hover {
+    background: #009ec3;
+}
+.admin-btn-danger {
+    background: #e11d48;
+    color: #fff;
+}
+.admin-btn-danger:hover {
+    background: #b91c1c;
+}
+@media (max-width: 900px) {
+    .admin-layout { flex-direction: column; }
+    .admin-sidebar { width: 100%; flex-direction: row; padding: 1em; }
+    .admin-main { padding: 1em; }
+}

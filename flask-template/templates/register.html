@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% set hide_navbar = True %}
+{% block content_user %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<div class="register-hero d-flex align-items-center justify-content-center" style="min-height:100vh;background:#232b3e;">
+  <div class="register-card d-flex flex-row shadow-lg" style="background:#fff;border-radius:2rem;overflow:hidden;max-width:900px;width:100%;">
+    <div class="register-illustration d-flex flex-column align-items-center justify-content-center p-5" style="background:#232b3e;color:#fff;min-width:320px;max-width:380px;">
+      <div class="mb-4">
+        <i class="bi bi-person-circle" style="font-size:3.5rem;"></i>
+      </div>
+      <h3 class="fw-bold mb-2" style="font-size:1.6rem;">¡Bienvenido!</h3>
+      <p class="mb-0" style="font-size:1.1rem;opacity:0.85;">Crea tu cuenta para acceder a la Agenda Escolar.</p>
+    </div>
+    <div class="register-form-box flex-fill p-5" style="background:#f7f8fa;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0" style="color:#232b3e;">Crear Cuenta</h2>
+        <a href="{{ url_for('login') }}" class="small text-decoration-none" style="color:#2563eb;">¿Ya tienes cuenta?</a>
+      </div>
+      <form method="post" autocomplete="off">
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="first_name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" required>
+          </div>
+          <div class="col-md-6">
+            <label for="last_name" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="username" class="form-label">Usuario</label>
+          <input type="text" class="form-control" id="username" name="username" required autofocus>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <div class="col-md-6">
+            <label for="confirm" class="form-label">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="confirm" name="confirm" required>
+          </div>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="grade_level" class="form-label">Grado <span style="color:#e11d48;">*</span></label>
+            <select id="grade_level" name="grade_level" class="form-select" required>
+              <option value="">Selecciona tu grado</option>
+              {% for grade in grade_levels %}
+                <option value="{{ grade.id }}">{{ grade.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="group" class="form-label">Grupo (opcional)</label>
+            <select id="group" name="group" class="form-select">
+              <option value="">Sin grupo</option>
+              {% for group in groups %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" style="font-size:1.1em;">Registrarse</button>
+      </form>
+    </div>
+  </div>
+</div>
+<style>
+body { background: #232b3e !important; }
+.register-hero { min-height: 100vh; }
+.register-card { box-shadow: 0 8px 32px rgba(44,62,80,0.13); }
+.register-illustration { background: #232b3e; color: #fff; }
+.register-form-box { background: #f7f8fa; }
+@media (max-width: 900px) {
+  .register-card { flex-direction: column; border-radius: 1.5rem; }
+  .register-illustration, .register-form-box { min-width: 100%; max-width: 100%; border-radius: 0; padding: 2.5em 1.2em; }
+}
+</style>
+{% endblock %}

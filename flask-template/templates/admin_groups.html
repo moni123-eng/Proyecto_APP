@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Gestión de Grupos</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+            <tr>
+                <td>{{ group.name }}</td>
+                <td>{{ group.description }}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_group', group_id=group.id) }}" class="admin-btn"><i class="fa-solid fa-pen"></i></a>
+                    <form action="{{ url_for('admin_delete_group', group_id=group.id) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Eliminar este grupo?');">
+                        <button type="submit" class="admin-btn admin-btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_add_group') }}" class="admin-btn"><i class="fa-solid fa-plus"></i> Agregar Grupo</a>
+</div>
+{% endblock %}

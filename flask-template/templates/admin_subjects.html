@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Gestión de Materias</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+            <tr>
+                <td>{{ subject.name }}</td>
+                <td>{{ subject.description }}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_subject', subject_id=subject.id) }}" class="admin-btn"><i class="fa-solid fa-pen"></i></a>
+                    <form action="{{ url_for('admin_delete_subject', subject_id=subject.id) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Eliminar esta materia?');">
+                        <button type="submit" class="admin-btn admin-btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_add_subject') }}" class="admin-btn"><i class="fa-solid fa-plus"></i> Agregar Materia</a>
+</div>
+{% endblock %}

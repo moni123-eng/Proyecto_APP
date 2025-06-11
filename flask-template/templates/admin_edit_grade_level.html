@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card" style="max-width:480px;margin:2em auto 0 auto;box-shadow:0 4px 24px rgba(0,209,255,0.10);">
+    <h2 style="margin-top:0;text-align:center;color:#00d1ff;letter-spacing:1px;">Editar Grado</h2>
+    <form method="post" autocomplete="off" style="margin-top:2em;">
+        <div style="margin-bottom:1.5em;">
+            <label for="name" style="font-weight:600;color:#23272f;">Nombre del Grado</label>
+            <input type="text" id="name" name="name" value="{{ grade.name }}" required style="width:100%;padding:0.9em;border-radius:7px;border:1px solid #bcd0ee;font-size:1.1em;">
+        </div>
+        <div style="margin-bottom:2em;">
+            <label for="description" style="font-weight:600;color:#23272f;">Descripción</label>
+            <input type="text" id="description" name="description" value="{{ grade.description }}" style="width:100%;padding:0.9em;border-radius:7px;border:1px solid #bcd0ee;font-size:1.1em;">
+        </div>
+        <div style="display:flex;gap:1em;align-items:center;">
+            <button type="submit" class="admin-btn" style="flex:1;font-size:1.1em;display:flex;align-items:center;justify-content:center;gap:0.5em;">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+            </button>
+            <a href="{{ url_for('admin_grade_levels') }}" class="admin-btn admin-btn-danger" style="flex:1;text-align:center;font-size:1.1em;display:flex;align-items:center;justify-content:center;gap:0.5em;">
+                <i class="fa-solid fa-arrow-left"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

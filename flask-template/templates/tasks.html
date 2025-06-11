@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content_user %}
+<div class="container my-4">
+  <h2 class="fw-bold mb-4"><i class="bi bi-list-task me-2"></i>Mis Tareas</h2>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Agregar Nueva Tarea</h5>
+      <form method="post" class="row g-3 align-items-end">
+        <div class="col-md-4">
+          <label class="form-label">Título</label>
+          <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Descripción</label>
+          <input type="text" name="description" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Fecha de vencimiento</label>
+          <input type="date" name="due_date" class="form-control" required>
+        </div>
+        <div class="col-md-1 d-grid">
+          <button type="submit" class="btn btn-primary">Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Listado de Tareas</h5>
+      <table class="table table-bordered table-striped">
+        <thead class="table-light">
+          <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Vencimiento</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.due_date }}</td>
+            <td>
+              {% if task.completed %}
+                <span class="badge bg-success">Completada</span>
+              {% else %}
+                <span class="badge bg-warning text-dark">Pendiente</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if not task.completed %}
+                <form action="{{ url_for('complete_task', task_id=task.id) }}" method="post" style="display:inline;">
+                  <button type="submit" class="btn btn-success btn-sm">Marcar como completada</button>
+                </form>
+              {% endif %}
+              <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Eliminar esta tarea?');">
+                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="text-muted">No tienes tareas registradas.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

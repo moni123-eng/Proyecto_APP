@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content_user %}
+<div class="container my-4">
+  <h2 class="fw-bold mb-4"><i class="bi bi-calendar-week me-2"></i>Mi Horario</h2>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Agregar Clase</h5>
+      <form method="post" class="row g-3 align-items-end">
+        <div class="col-md-3">
+          <label class="form-label">Materia</label>
+          <select name="subject_id" class="form-select" required>
+            <option value="">Selecciona una materia</option>
+            {% for subject in subjects %}
+              <option value="{{ subject.id }}">{{ subject.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Día</label>
+          <select name="day_of_week" class="form-select" required>
+            <option value="0">Lunes</option>
+            <option value="1">Martes</option>
+            <option value="2">Miércoles</option>
+            <option value="3">Jueves</option>
+            <option value="4">Viernes</option>
+            <option value="5">Sábado</option>
+            <option value="6">Domingo</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Inicio</label>
+          <input type="time" name="start_time" class="form-control" required>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Fin</label>
+          <input type="time" name="end_time" class="form-control" required>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Profesor</label>
+          <input type="text" name="teacher" class="form-control">
+        </div>
+        <div class="col-md-1 d-grid">
+          <button type="submit" class="btn btn-primary">Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Clases Registradas</h5>
+      <table class="table table-bordered table-striped">
+        <thead class="table-light">
+          <tr>
+            <th>Materia</th>
+            <th>Día</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+            <th>Profesor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for clase in schedule %}
+          <tr>
+            <td>{{ clase.subject.name }}</td>
+            <td>{{ ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'][clase.day_of_week] }}</td>
+            <td>{{ clase.start_time.strftime('%H:%M') }}</td>
+            <td>{{ clase.end_time.strftime('%H:%M') }}</td>
+            <td>{{ clase.teacher }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="text-muted">No tienes clases registradas.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

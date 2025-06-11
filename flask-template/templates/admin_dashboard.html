@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2 style="margin-top:0;">Panel de Administración</h2>
+    <div style="display:flex; gap:2em; flex-wrap:wrap;">
+        <div style="flex:1; min-width:200px;">
+            <div style="font-size:2.2em; color:#00d1ff; font-weight:bold;">{{ total_estudiantes }}</div>
+            <div style="color:#23272f;">Estudiantes</div>
+        </div>
+        <div style="flex:1; min-width:200px;">
+            <div style="font-size:2.2em; color:#00d1ff; font-weight:bold;">{{ total_grupos }}</div>
+            <div style="color:#23272f;">Grupos</div>
+        </div>
+        <div style="flex:1; min-width:200px;">
+            <div style="font-size:2.2em; color:#00d1ff; font-weight:bold;">{{ total_materias }}</div>
+            <div style="color:#23272f;">Materias</div>
+        </div>
+        <div style="flex:1; min-width:200px;">
+            <div style="font-size:2.2em; color:#00d1ff; font-weight:bold;">{{ total_grados }}</div>
+            <div style="color:#23272f;">Grados</div>
+        </div>
+    </div>
+</div>
+<div class="admin-card">
+    <h3>Gestión Rápida</h3>
+    <a href="{{ url_for('admin_users') }}" class="admin-btn"><i class="fa-solid fa-users"></i> Usuarios</a>
+    <a href="{{ url_for('admin_groups') }}" class="admin-btn"><i class="fa-solid fa-layer-group"></i> Grupos</a>
+    <a href="{{ url_for('admin_grade_levels') }}" class="admin-btn"><i class="fa-solid fa-list-ol"></i> Grados</a>
+    <a href="{{ url_for('admin_subjects') }}" class="admin-btn"><i class="fa-solid fa-book"></i> Materias</a>
+    <a href="{{ url_for('admin_grade_students') }}" class="admin-btn" style="background:#22c55e;"><i class="fa-solid fa-pen"></i> Calificar</a>
+</div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="toast-flash flash-{{ category }}" id="toast-flash">
+      <span>{{ message }}</span>
+    </div>
+    <script>
+      setTimeout(function() {
+        var toast = document.getElementById('toast-flash');
+        if (toast) toast.classList.add('hide');
+      }, 2500);
+    </script>
+  {% endfor %}
+{% endwith %}
+{% endblock %}

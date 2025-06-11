@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% set hide_navbar = True %}
+{% block content_user %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<div class="login-hero d-flex align-items-center justify-content-center" style="min-height:100vh;background:#232b3e;">
+  <div class="login-card shadow-lg" style="background:#fff;border-radius:2rem;overflow:hidden;max-width:400px;width:100%;padding:2.5em 2em;">
+    <div class="text-center mb-4">
+      <i class="bi bi-person-circle" style="font-size:3.5rem;color:#2563eb;"></i>
+    </div>
+    <h2 class="fw-bold mb-3 text-center" style="color:#232b3e;">Iniciar Sesión</h2>
+    <form method="post" autocomplete="off">
+      <div class="mb-3">
+        <label for="username" class="form-label">Usuario</label>
+        <input type="text" class="form-control" id="username" name="username" required autofocus>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" style="font-size:1.1em;">Entrar</button>
+    </form>
+    <div class="text-center mt-3">
+      <a href="{{ url_for('register') }}" class="small text-decoration-none" style="color:#2563eb;">¿No tienes cuenta? Regístrate</a>
+    </div>
+  </div>
+</div>
+<style>
+body { background: #232b3e !important; }
+.login-hero { min-height: 100vh; }
+.login-card { box-shadow: 0 8px 32px rgba(44,62,80,0.13); }
+@media (max-width: 600px) {
+  .login-card { border-radius: 1.5rem; padding: 2em 1em; }
+}
+</style>
+{% endblock %}

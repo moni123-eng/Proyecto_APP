@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content_admin %}
+<div class="admin-card">
+    <h2>Gestión de Niveles de Grado</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+            <tr>
+                <td>{{ grade.name }}</td>
+                <td>{{ grade.description }}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_grade_level', grade_id=grade.id) }}" class="admin-btn"><i class="fa-solid fa-pen"></i></a>
+                    <form action="{{ url_for('admin_delete_grade_level', grade_id=grade.id) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Eliminar este grado?');">
+                        <button type="submit" class="admin-btn admin-btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_add_grade_level') }}" class="admin-btn"><i class="fa-solid fa-plus"></i> Agregar Grado</a>
+</div>
+{% endblock %}
